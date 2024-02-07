@@ -20,7 +20,8 @@ end
 
 fill!(y, 2)
 sequential_add!(y, x)
-println("sequential add: ", @test all(y .== 3.0f0))
+println("CPU sequential add: ", @test all(y .== 3.0f0))
+display(@btime sequential_add!($y, $x))
 
 # this is a parallel kernel
 function parallel_add!(y, x)
@@ -32,8 +33,7 @@ end
 
 fill!(y, 2)
 parallel_add!(y, x)
-println("parallel add: ", @test all(y .== 3.0f0))
+println("CPU parallel add: ", @test all(y .== 3.0f0))
 
 # BENCHMARK
-display(@btime sequential_add!($y, $x))
 display(@btime parallel_add!($y, $x))
